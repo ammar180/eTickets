@@ -1,0 +1,27 @@
+﻿@model IEnumerable<eTickets.Models.Movie>
+@{
+    ViewData["Title"] = "Movies List";
+}
+
+<div class="w-100 d-flex flex-wrap justify-content-center gap-3">
+@foreach (var movie in Model){
+    <div class="card" style="width: 30%; min-height: 30rem;">
+  <h3 class="card-header border-0 bg-primary text-light">@movie.Name</h3>
+  <div class="card-body p-0 d-flex">
+      <img class="h-100 w-50" src="@movie.ImageURL"/>
+      <div class="d-flex flex-column gap-3 p-2">
+          <p>@movie.Description</p>
+          <div><strong>Cinema:</strong><span>Cinema 3</span></div>
+          <div><strong>Start Date:</strong><span>@movie.StartDate</span></div>
+          <div><strong>End Date:</strong><span>@movie.EndDate</span></div>
+          <p>Status:<span class="badge bg-success">Active</span></p>
+      </div>
+  </div>
+  <div class="card-footer d-flex justify-content-around">
+    <button class="btn btn-success"><i class="bi bi-cart-plus me-2"></i>Add to Card (Price: @movie.Price)</button>
+    <button class="btn btn-outline-primary"><i class="bi bi-eye-fill me-2"></i>Show Details</button>
+  </div>
+</div>
+}
+
+</div>
