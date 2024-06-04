@@ -37,7 +37,7 @@ namespace eTickets.Controllers
         public IActionResult Search([Bind("MovieName")] string name)
         {
             // ToDo: search to movies
-            //var movieList = context.Movies.Where(x => x.MovieName.Contains(name)).ToList();
+            //var movieList = context.Movies.Where(x => x.MovieName.Contains(name) || x.Description.Contains(name)).ToList();
             List<Movie> movieList = new List<Movie>();
             return View("Index", movieList);
         }
