@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - eTickets</title>
+    <title>@ViewData["Title"] - ETickets</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/eTickets.styles.css" asp-append-version="true" />
@@ -24,8 +24,8 @@
          <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-film"></i>Movies</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search..">
+      <form asp-controller="Home" asp-action="Search" class="d-flex">
+        <input class="form-control me-sm-2" name="MovieName" type="search" placeholder="Search..">
         <button class="btn btn-primary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
       </form>
       <buttone class="btn btn-outline-success ms-2"><i class="bi bi-box-arrow-right"></i>Login</buttone>

@@ -1,27 +1,74 @@
-﻿@model IEnumerable<eTickets.Models.Movie>
+﻿@model IEnumerable<Movie>
+
 @{
-    ViewData["Title"] = "Movies List";
+    ViewData["Title"] = "List of Movies";
 }
 
-<div class="w-100 d-flex flex-wrap justify-content-center gap-3">
-@foreach (var movie in Model){
-    <div class="card" style="width: 30%; min-height: 30rem;">
-  <h3 class="card-header border-0 bg-primary text-light">@movie.Name</h3>
-  <div class="card-body p-0 d-flex">
-      <img class="h-100 w-50" src="@movie.ImageURL"/>
-      <div class="d-flex flex-column gap-3 p-2">
-          <p>@movie.Description</p>
-          <div><strong>Cinema:</strong><span>Cinema 3</span></div>
-          <div><strong>Start Date:</strong><span>@movie.StartDate</span></div>
-          <div><strong>End Date:</strong><span>@movie.EndDate</span></div>
-          <p>Status:<span class="badge bg-success">Active</span></p>
-      </div>
-  </div>
-  <div class="card-footer d-flex justify-content-around">
-    <button class="btn btn-success"><i class="bi bi-cart-plus me-2"></i>Add to Card (Price: @movie.Price)</button>
-    <button class="btn btn-outline-primary"><i class="bi bi-eye-fill me-2"></i>Show Details</button>
-  </div>
-</div>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-primary">
+                                <p class="card-text">
+                                    <h5 class="card-title">
+                                    @item.MovieName
+                                    @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                                <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    } *@
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="@item.MovieImageURL" width="100%" alt="@item.MovieName">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text">@item.Description</p>
+                                <p class="card-text"><b>Cinema: </b>@* @item.Cinema.Name *@</p>
+                                <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
+                                <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
+                                <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
+                                <p class="card-text ">
+                                    <b>Status: </b>
+                                @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                {
+                                            <span class="badge bg-success text-white">AVAILABLE</span>
+                                }
+                                else if (DateTime.Now > item.EndDate)
+                                {
+                                            <span class="badge bg-danger text-white">EXPIRED</span>
+                                }
+                                else
+                                {
+                                            <span class="badge bg-primary text-white">UPCOMING</span>
+                                }
+                                </p>
 
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text d-flex justify-content-around">
+                                    <a class="btn btn-outline-primary" @* asp-action="Details" asp-route-id="@item.MovieId" *@>
+                                        <i class="bi bi-eye-fill"></i> Show Details
+                                    </a>
+                                    <a class="btn btn-success  @((DateTime.Now > item.EndDate) ? "disabled" : "")" 
+                                       @* asp-controller="Orders" 
+                                       asp-action="AddItemToShoppingCart" 
+                                       asp-route-id="@item.MovieId" *@>
+                                    <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
 </div>
+@* 
+@await Html.PartialAsync("_CreateItem", "Movies")  *@
