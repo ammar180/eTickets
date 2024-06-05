@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Data;
 
-public class AppDbContext:DbContext
+public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -20,7 +20,7 @@ public class AppDbContext:DbContext
         modelBuilder.Entity<Actor_Movie>().HasOne(x => x.movie)
             .WithMany(x => x.MovieActors)
             .HasForeignKey(x => x.MovieId);
-        
+
         modelBuilder.Entity<Actor_Movie>().HasOne(x => x.actor)
             .WithMany(x => x.ActorMovies)
             .HasForeignKey(x => x.ActorId);
@@ -29,7 +29,7 @@ public class AppDbContext:DbContext
     }
     public DbSet<Movie> Movies { get; set; }
     public DbSet<Actor> Actors { get; set; }
-    public DbSet<Cinema> Cinimas { get; set; }
+    public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Producer> Producers { get; set; }
     public DbSet<Actor_Movie> Actors_Movies { get; set; }
 }
