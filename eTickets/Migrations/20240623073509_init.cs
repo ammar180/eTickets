@@ -27,7 +27,7 @@ namespace eTickets.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cinimas",
+                name: "Cinemas",
                 columns: table => new
                 {
                     CinemasId = table.Column<int>(type: "int", nullable: false)
@@ -38,7 +38,7 @@ namespace eTickets.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cinimas", x => x.CinemasId);
+                    table.PrimaryKey("PK_Cinemas", x => x.CinemasId);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +69,6 @@ namespace eTickets.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MovieCategory = table.Column<int>(type: "int", nullable: false),
-                    cinemaId = table.Column<int>(type: "int", nullable: false),
                     CinemasId = table.Column<int>(type: "int", nullable: false),
                     ProducerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -77,9 +76,9 @@ namespace eTickets.Migrations
                 {
                     table.PrimaryKey("PK_Movies", x => x.MovieId);
                     table.ForeignKey(
-                        name: "FK_Movies_Cinimas_CinemasId",
+                        name: "FK_Movies_Cinemas_CinemasId",
                         column: x => x.CinemasId,
-                        principalTable: "Cinimas",
+                        principalTable: "Cinemas",
                         principalColumn: "CinemasId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -143,7 +142,7 @@ namespace eTickets.Migrations
                 name: "Movies");
 
             migrationBuilder.DropTable(
-                name: "Cinimas");
+                name: "Cinemas");
 
             migrationBuilder.DropTable(
                 name: "Producers");

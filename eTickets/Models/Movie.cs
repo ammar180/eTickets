@@ -23,7 +23,7 @@ public class Movie
     
     //Relationships
     public List<Actor_Movie> MovieActors { get; set; }
-    public int cinemaId { get; set; }
+    public int CinemasId { get; set; }
     [ForeignKey("CinemasId")]
     public Cinema Cinema { get; set; }
     public int ProducerId { get; set; }

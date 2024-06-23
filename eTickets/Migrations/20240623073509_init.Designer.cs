@@ -12,7 +12,7 @@ using eTickets.Data;
 namespace eTickets.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240604085228_init")]
+    [Migration("20240623073509_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace eTickets.Migrations
 
                     b.HasKey("CinemasId");
 
-                    b.ToTable("Cinimas");
+                    b.ToTable("Cinemas");
                 });
 
             modelBuilder.Entity("eTickets.Models.Movie", b =>
@@ -127,9 +127,6 @@ namespace eTickets.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("cinemaId")
-                        .HasColumnType("int");
 
                     b.HasKey("MovieId");
 

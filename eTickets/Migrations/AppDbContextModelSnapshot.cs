@@ -84,7 +84,7 @@ namespace eTickets.Migrations
 
                     b.HasKey("CinemasId");
 
-                    b.ToTable("Cinimas");
+                    b.ToTable("Cinemas");
                 });
 
             modelBuilder.Entity("eTickets.Models.Movie", b =>
@@ -124,9 +124,6 @@ namespace eTickets.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("cinemaId")
-                        .HasColumnType("int");
 
                     b.HasKey("MovieId");
 

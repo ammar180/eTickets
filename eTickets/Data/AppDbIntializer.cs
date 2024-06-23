@@ -5,54 +5,15 @@ public class AppDbInitializer
 {
     public static void Seed(IApplicationBuilder applicationBuilder)
     {
-        using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+        using var serviceScope = applicationBuilder.ApplicationServices.CreateScope();
+        var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
+
+        context.Database.EnsureCreated();
+
+        //Actors
+        if (!context.Actors.Any())
         {
-            var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
-
-            context.Database.EnsureCreated();
-
-            //Cinema
-            if (!context.Cinemas.Any())
-            {
-                context.Cinemas.AddRange(new List<Cinema>()
-                {
-                    new Cinema()
-                    {
-                        CinemasName = "Cinema 1",
-                        logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg",
-                        Description = "This is the description of the first cinema"
-                    },
-                    new Cinema()
-                    {
-                        CinemasName = "Cinema 2",
-                        logo = "http://dotnethow.net/images/cinemas/cinema-2.jpeg",
-                        Description = "This is the description of the first cinema"
-                    },
-                    new Cinema()
-                    {
-                        CinemasName = "Cinema 3",
-                        logo = "http://dotnethow.net/images/cinemas/cinema-3.jpeg",
-                        Description = "This is the description of the first cinema"
-                    },
-                    new Cinema()
-                    {
-                        CinemasName = "Cinema 4",
-                        logo = "http://dotnethow.net/images/cinemas/cinema-4.jpeg",
-                        Description = "This is the description of the first cinema"
-                    },
-                    new Cinema()
-                    {
-                        CinemasName = "Cinema 5",
-                        logo = "http://dotnethow.net/images/cinemas/cinema-5.jpeg",
-                        Description = "This is the description of the first cinema"
-                    },
-                });
-                context.SaveChanges();
-            }
-            //Actors
-            if (!context.Actors.Any())
-            {
-                context.Actors.AddRange(new List<Actor>()
+            context.Actors.AddRange(new List<Actor>()
                 {
                     new Actor()
                     {
@@ -86,12 +47,51 @@ public class AppDbInitializer
                         Profilepicture = "http://dotnethow.net/images/actors/actor-5.jpeg"
                     }
                 });
-                context.SaveChanges();
-            }
-            //Producers
-            if (!context.Producers.Any())
-            {
-                context.Producers.AddRange(new List<Producer>()
+            context.SaveChanges();
+        }
+        //Cinema
+        if (!context.Cinemas.Any())
+        {
+            context.Cinemas.AddRange(new List<Cinema>()
+                {
+                    new Cinema()
+                    {
+                        CinemasName = "Cinema 1",
+                        logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg",
+                        Description = "This is the description of the first cinema"
+                    },
+                    new Cinema()
+                    {
+                        CinemasName = "Cinema 2",
+                        logo = "http://dotnethow.net/images/cinemas/cinema-2.jpeg",
+                        Description = "This is the description of the first cinema"
+                    },
+                    new Cinema()
+                    {
+                        CinemasName = "Cinema 3",
+                        logo = "http://dotnethow.net/images/cinemas/cinema-3.jpeg",
+                        Description = "This is the description of the first cinema"
+                    },
+                    new Cinema()
+                    {
+                        CinemasName = "Cinema 4",
+                        logo = "http://dotnethow.net/images/cinemas/cinema-4.jpeg",
+                        Description = "This is the description of the first cinema"
+                    },
+                    new Cinema()
+                    {
+                        CinemasName = "Cinema 5",
+                        logo = "http://dotnethow.net/images/cinemas/cinema-5.jpeg",
+                        Description = "This is the description of the first cinema"
+                    },
+                }
+            );
+            context.SaveChanges();
+        }
+        //Producers
+        if (!context.Producers.Any())
+        {
+            context.Producers.AddRange(new List<Producer>()
                 {
                     new Producer()
                     {
@@ -125,12 +125,12 @@ public class AppDbInitializer
                         ProfilepictureURL = "http://dotnethow.net/images/producers/producer-5.jpeg"
                     }
                 });
-                context.SaveChanges();
-            }
-            //Movies
-            if (!context.Movies.Any())
-            {
-                context.Movies.AddRange(new List<Movie>()
+            context.SaveChanges();
+        }
+        //Movies
+        if (!context.Movies.Any())
+        {
+            context.Movies.AddRange(new List<Movie>()
                 {
                     new Movie()
                     {
@@ -140,7 +140,7 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
                         StartDate = DateTime.Now.AddDays(-10),
                         EndDate = DateTime.Now.AddDays(10),
-                        cinemaId = 3,
+                        CinemasId = 3,
                         ProducerId = 3,
                         MovieCategory = MovieCategory.Documentary
                     },
@@ -152,7 +152,7 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-1.jpeg",
                         StartDate = DateTime.Now,
                         EndDate = DateTime.Now.AddDays(3),
-                        cinemaId = 1,
+                        CinemasId = 1,
                         ProducerId = 1,
                         MovieCategory = MovieCategory.Action
                     },
@@ -164,7 +164,7 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-4.jpeg",
                         StartDate = DateTime.Now,
                         EndDate = DateTime.Now.AddDays(7),
-                        cinemaId = 4,
+                        CinemasId = 4,
                         ProducerId = 4,
                         MovieCategory = MovieCategory.Horror
                     },
@@ -176,7 +176,7 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-6.jpeg",
                         StartDate = DateTime.Now.AddDays(-10),
                         EndDate = DateTime.Now.AddDays(-5),
-                        cinemaId = 1,
+                        CinemasId = 1,
                         ProducerId = 2,
                         MovieCategory = MovieCategory.Documentary
                     },
@@ -188,7 +188,7 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-7.jpeg",
                         StartDate = DateTime.Now.AddDays(-10),
                         EndDate = DateTime.Now.AddDays(-2),
-                        cinemaId = 1,
+                        CinemasId = 1,
                         ProducerId = 3,
                         MovieCategory = MovieCategory.Catroon
                     },
@@ -200,17 +200,17 @@ public class AppDbInitializer
                         MovieImageURL = "http://dotnethow.net/images/movies/movie-8.jpeg",
                         StartDate = DateTime.Now.AddDays(3),
                         EndDate = DateTime.Now.AddDays(20),
-                        cinemaId = 1,
+                        CinemasId = 1,
                         ProducerId = 5,
                         MovieCategory = MovieCategory.Drama
                     }
                 });
-                context.SaveChanges();
-            }
-            //Actors & Movies
-            if (!context.Actors_Movies.Any())
-            {
-                context.Actors_Movies.AddRange(new List<Actor_Movie>()
+            context.SaveChanges();
+        }
+        //Actors & Movies
+        if (!context.Actors_Movies.Any())
+        {
+            context.Actors_Movies.AddRange(new List<Actor_Movie>()
                 {
                     new Actor_Movie()
                     {
@@ -306,8 +306,7 @@ public class AppDbInitializer
                         MovieId = 6
                     },
                 });
-                context.SaveChanges();
-            }
+            context.SaveChanges();
         }
 
     }

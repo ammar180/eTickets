@@ -1,6 +1,7 @@
 using eTickets.Data;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace eTickets.Controllers
@@ -17,20 +18,9 @@ namespace eTickets.Controllers
             context = _context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Movie> listOfMovies = new List<Movie>()
-            {
-                new Movie(){
-                MovieName = "Life",
-                Description = "This Description..",
-                StartDate = new DateTime(2007, 1, 10),
-                EndDate = new DateTime(2024, 6, 3),
-                MovieImageURL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo2b9bAIyvAPL_ij4Dtl0BDNEdcCxiweWdbw&s",
-                Price = 599,
-                MovieCategory = Data.MovieCategory.Action
-            },
-            };
+            var listOfMovies = await context.Movies.ToListAsync();
             return View(listOfMovies);
         }
         [HttpPost]

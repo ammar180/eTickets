@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using eTickets.Data;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace eTickets;
 public class Program
@@ -7,6 +8,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("eTicketConnectionStr") ?? throw new InvalidOperationException("Connection string 'eTicketConnectionStr' not found.")));
 
@@ -30,9 +32,9 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.MapControllerRoute(name: "default",
+                                    pattern: "{controller=Movies}/{action=Index}/{id?}");
+
         AppDbInitializer.Seed(app);
         app.Run();
     }
