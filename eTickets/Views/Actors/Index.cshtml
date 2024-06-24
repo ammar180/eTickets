@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Actors List";
 }
-<table class="table">
+<div class="container">
+<table class="table table-hover">
     <thead>
         <tr class="col">
             <th>@Html.DisplayNameFor(model => model.Profilepicture)</th>
@@ -19,11 +20,14 @@
                 <td class="pt-4">@item.FullName</td>
                 <td class="pt-4">@item.Bio</td>
                 <td class="pt-4">
-                    <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a>|
+                    <a asp-action="UpdateActor" asp-route-id="@item.ActorId" class="btn btn-outline-primary">
+                        <i class="bi bi-pencil-square"></i>Edit</a>|
                     <a asp-action="Details" asp-route-id="@item.ActorId" class="btn btn-outline-info"> <i class="bi bi-eye-fill"></i>Details</a>|
                     <a class="btn btn-danger"><i class="bi bi-trash-fill"></i>Delete</a>
                 </td>
             </tr>
         }
     </tbody>
-</table>
+    </table>
+
+</div>
