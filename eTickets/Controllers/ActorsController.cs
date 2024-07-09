@@ -1,4 +1,5 @@
 ﻿using eTickets.Data;
+using eTickets.Data.Services;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,28 +8,21 @@ namespace eTickets.Controllers;
 
 public class ActorsController : Controller
 {
-    private readonly AppDbContext context;
-    public ActorsController(AppDbContext _context)
-    {
-        context = _context;
-    }
+    private readonly IDataHelper<Actor> context;
 
     public async Task<IActionResult> Index()
     {
-        var allActors = await context.Actors.ToListAsync();
-        return View(allActors);
+        return View(await context.GetAll());
     }
     public async Task<IActionResult> Details(int id = 1)
     {
-        var actor = await context.Actors.FirstOrDefaultAsync(x => x.ActorId == id);
-        return View(actor);
+        return View(context.GetById(id));
     }
     // GET: /Actors/UpdateActor
     [HttpGet]
     public async Task<IActionResult> UpdateActor(int id = 1)
     {
-        var actor = await context.Actors.FirstOrDefaultAsync(x => x.ActorId == id);
-        return View(actor);
+        return View(context.GetById(id));
     }
     // Post: /Actors/UpdateActor
     [HttpPost]
@@ -36,11 +30,13 @@ public class ActorsController : Controller
     {
         try
         {
-            context.Actors.Update(actor);
-            context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                context.Update(actor);
 
-
-            return View("Index", await context.Actors.ToListAsync());
+                return View("Index", await context.GetAll());
+            }
+            throw new Exception();
         }
         catch 
         { 

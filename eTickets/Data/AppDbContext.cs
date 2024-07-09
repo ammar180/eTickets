@@ -11,19 +11,11 @@ public class AppDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Actor_Movie>().HasKey(x => new { x.MovieId, x.ActorId });
         modelBuilder.Entity<Actor_Movie>().HasKey(option => new
         {
             option.MovieId,
             option.ActorId
         });
-        modelBuilder.Entity<Actor_Movie>().HasOne(x => x.movie)
-            .WithMany(x => x.MovieActors)
-            .HasForeignKey(x => x.MovieId);
-
-        modelBuilder.Entity<Actor_Movie>().HasOne(x => x.actor)
-            .WithMany(x => x.ActorMovies)
-            .HasForeignKey(x => x.ActorId);
 
         base.OnModelCreating(modelBuilder);
     }
